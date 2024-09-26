@@ -122,8 +122,8 @@ def generate_latex(root_dir):
         latex_pre_path = config["latex-pre"]
         latex_pre = read_file(latex_pre_path)
 
-    title = escape_latex_special_chars(config.get("title", "UESTC Nanana Templates"))
-    author = escape_latex_special_chars(config.get("author", "UESTC_Nanana"))
+    title = escape_latex_special_chars(config.get("title", "ECNU proven Templates"))
+    author = escape_latex_special_chars(config.get("author", "ECNU_proven"))
 
     latex_pre = latex_pre.replace("{PLACEHOLDER:TITLE}", title).replace(
         "{PLACEHOLDER:AUTHOR}", author
