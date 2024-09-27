@@ -1,0 +1,10 @@
+contents:
+  - name: 线段树二分
+    code: 线段树二分.cpp
+    code-pre: 线段树二分-pre.tex
+  - name: 线段树区间赋值&区间加
+    code: 线段树区间赋值&区间加.cpp
+  - name: 线段树维护等差数列
+    code: 线段树维护等差数列.cpp
+  - name: basic_operation
+    code: basic_operation.cpp

@@ -75,3 +75,55 @@ struct Dinic {
         return maxflow;
     }
 };
+
+namespace network
+{
+    constexpr int maxn = 3003;
+    queue<int> que;
+    int src, dst, maxFlow;
+    array<int, maxn> pos, cur, dep;
+    array<vector<tuple<int, int, int>>, maxn> nxt;
+    void addEdge(int u, int v, int w)
+    {
+        nxt[u].emplace_back(v, w, pos[v]++);
+        nxt[v].emplace_back(u, 0, pos[u]++);
+        return;
+    }
+    bool bfs()
+    {
+        cur.fill(0), dep.fill(0);
+        que.emplace(src), dep[src] = 1;
+        for (int u; !que.empty(); que.pop())
+        {
+            u = que.front();
+            for (auto [v, w, k] : nxt[u])
+                if (!dep[v] && w)
+                    que.emplace(v), dep[v] = dep[u] + 1;
+        }
+        return dep[dst];
+    }
+    int dfs(int u, int low)
+    {
+        if (u == dst || !low)
+            return low;
+        int use = 0;
+        for (int &i = cur[u]; i < pos[u]; i++)
+        {
+            auto [v, w, j] = nxt[u][i];
+            if ((dep[v] == dep[u] + 1) && (w = dfs(v, min(w, low))))
+            {
+                get<1>(nxt[u][i]) -= w, low -= w;
+                get<1>(nxt[v][j]) += w, use += w;
+                if (!low)
+                    break;
+            }
+        }
+        return use;
+    }
+    void dinic()
+    {
+        while (bfs())
+            maxFlow += dfs(src, inf);
+        return;
+    }
+}

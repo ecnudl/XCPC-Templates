@@ -1,5 +1,29 @@
 ﻿contents:
-  - name: disjoint_set_union
-    code: disjoint_set_union.cpp
-  - name: fenwick-tree
-    code: fenwick-tree.cpp
+  - name: SegmentTree
+    derictory: SegmentTree
+  - name: 并查集
+    code: 并查集.cpp
+  - name: 树状数组
+    code: 树状数组.cpp
+  - name: ST表
+    code: ST表.cpp
+  - name: 线性基
+    code: 线性基.cpp
+  - name: Trie
+    code: Trie.cpp
+  - name: 分块
+    code: 分块.cpp
+  - name: 单调栈
+    code: 单调栈.cpp
+  - name: 单调队列
+    code: 单调队列.cpp
+  - name: 莫队
+    code: 莫队.cpp
+  - name: 笛卡尔树
+    code: 笛卡尔树.cpp
+  - name: 主席树
+    code: 主席树.cpp
+  - name: 可持久化数组
+    code: 可持久化数组.cpp
+  - name: Treap
+    code: Treap.cpp

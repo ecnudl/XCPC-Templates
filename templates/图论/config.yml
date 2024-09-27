@@ -4,4 +4,35 @@
   - name: lca
     code: lca.cpp
     code-pre: lca-pre.tex
-    code-post: lca-post.tex
+  - name: Dijkstra
+    code: Dijkstra.cpp
+  - name: Bellman-ford
+    code: Bellman-ford.cpp
+    code-pre: Bellman-ford-pre.tex
+  - name: SPFA
+    code: SPFA.cpp
+    code-pre: SPFA-pre.tex
+  - name: Floyd
+    code: Floyd.cpp
+  - name: MST
+    code: MST.cpp
+  - name: Tarjan
+    code: Tarjan.cpp
+  - name: 树重心
+    code: 树重心.cpp
+    code-pre: 树重心-pre.tex
+  - name: 树链剖分
+    code: 树链剖分.cpp
+  - name: 求环
+    code: 求环.cpp
+    code-pre: 求环-pre.tex
+  - name: DSU_on_tree
+    code: DSU_on_tree.cpp
+    code-pre: DSU_on_tree-pre.tex
+  - name: 点分治
+    code: 点分治.cpp
+  - name: Euler
+    code: Euler.cpp
+    code-pre: Euler-pre.tex
+  - name: Two-sat
+    code: Two-sat.cpp
