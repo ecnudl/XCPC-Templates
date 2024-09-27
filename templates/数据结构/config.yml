@@ -1,6 +1,6 @@
 ﻿contents:
   - name: SegmentTree
-    derictory: SegmentTree
+    directory: SegmentTree
   - name: 并查集
     code: 并查集.cpp
   - name: 树状数组
