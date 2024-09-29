@@ -1,0 +1,16 @@
+contents:
+  - name: Kmp
+    code: Kmp.cpp
+    code-pre: Kmp-pre.tex
+  - name: ACAM
+    code: ACAM.cpp
+  - name: Z
+    code: Z.cpp
+    code-pre: Z-pre.tex
+  - name: StringHash
+    code: StringHash.cpp
+    code-pre: StringHash-pre.tex
+  - name: Manacher
+    code: Manacher.cpp
+  - name: SA
+    code: SA.cpp

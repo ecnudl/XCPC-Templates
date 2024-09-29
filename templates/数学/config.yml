@@ -3,3 +3,11 @@
     code-pre: 排列组合-pre.tex
   - name: 斐波那契数列
     code-pre: 斐波那契数列-pre.tex
+  - name: kpow
+    code: kpow.cpp
+  - name: 筛质数
+    code: 筛质数.cpp
+  - name: 组合数
+    code: 组合数.cpp
+  - name: 质因数分解
+    code: 质因数分解.cpp
