@@ -8,3 +8,6 @@ contents:
     code: 线段树维护等差数列.cpp
   - name: basic_operation
     code: basic_operation.cpp
+  - name: 线段树维护哈希
+    code: 线段树维护哈希.cpp
+    code-pre: 线段树维护哈希-pre.tex
