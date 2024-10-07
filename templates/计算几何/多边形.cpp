@@ -6,7 +6,8 @@ template<typename T> struct polygon
     size_t nxt(const size_t i) const {return i==p.size()-1?0:i+1;}
     size_t pre(const size_t i) const {return i==0?p.size()-1:i-1;}
 
-    pair<bool,int> winding(const point<T> &a) const
+    //如果返回的first是true代表点在多边形的边上，否则，如果cnt是0的话就在多边形外部，不等于0则在多边形内部，具体数值代表多边形绕着点旋转的逆时针圈数减去顺时针圈数
+    pair<bool,int> winding(const point<T> &a) const 
     {
         int cnt=0;
         for (size_t i=0;i<p.size();i++)

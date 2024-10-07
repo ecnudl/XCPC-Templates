@@ -9,3 +9,7 @@ contents:
     code: 极角排序.cpp
   - name: 多边形
     code: 多边形.cpp
+  - name: 凸包
+    code: 凸包.cpp
+  - name: 最小矩形覆盖
+    code: 最小矩形覆盖.cpp
