@@ -13,3 +13,5 @@ contents:
     code: 凸包.cpp
   - name: 最小矩形覆盖
     code: 最小矩形覆盖.cpp
+  - name: 半平面交
+    code: 半平面交.cpp

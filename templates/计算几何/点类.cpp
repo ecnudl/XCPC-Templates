@@ -17,7 +17,7 @@ template<typename T> struct point {
     double ang(const point &a) const {return acos(max(-1.0,min(1.0,((*this)*a)/(len()*a.len()))));}
     point rot(const double rad) const {return {x*cos(rad)-y*sin(rad),x*sin(rad)+y*cos(rad)};}
         friend istream & operator >> (istream&, point &t) {
-        cin >> t.x >> t.y >> t.ty;
+        cin >> t.x >> t.y;
         return cin;
     }
     friend ostream & operator << (ostream&, point &t) {
