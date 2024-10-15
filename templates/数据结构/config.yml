@@ -19,6 +19,8 @@
     code: 单调队列.cpp
   - name: 莫队
     code: 莫队.cpp
+  - name: 带修莫队
+    code: 带修莫队.cpp
   - name: 笛卡尔树
     code: 笛卡尔树.cpp
   - name: 主席树
