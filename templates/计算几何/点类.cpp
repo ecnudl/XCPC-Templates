@@ -16,7 +16,10 @@ template<typename T> struct point {
     double dis(const point &a) const {return sqrt(dis2(a));}
     double ang(const point &a) const {return acos(max(-1.0,min(1.0,((*this)*a)/(len()*a.len()))));}
     point rot(const double rad) const {return {x*cos(rad)-y*sin(rad),x*sin(rad)+y*cos(rad)};}
-        friend istream & operator >> (istream&, point &t) {
+    point rot(const point &rad) const { //无精度损失版本的点旋转，但是无法得到精确的位置，是按照方向向量扩展的点，在不考虑具体位置并且不爆炸ll的时候可以使用
+        return {x * rad.x - y * rad.y, x * rad.y + y * rad.x};
+    }
+    friend istream & operator >> (istream&, point &t) {
         cin >> t.x >> t.y;
         return cin;
     }
