@@ -1,43 +1,56 @@
-//二分排序求解，复杂度nlogn^2
-const ull P = 131;
-const int N = 3e5 + 10;
-ull h[N], p[N];
+#include <cstring>
+#include <iostream>
+#include <set>
 
-void solve() {
-    string s; cin >> s;
-    int n = (int)s.size();
-    s = ' ' + s;
-    p[0] = 1;
-    for(int i = 1;i <= n;i++) {
-        p[i] = p[i - 1] * P;
-        h[i] = h[i - 1] * P + s[i];
-    }
-    auto count = [&] (int l, int r) {
-        return h[r] - h[l - 1] * p[r - l + 1];
-    };
-    auto calc = [&] (int x, int y) {
-        int l1 = n - x + 1, l2 = n - y + 1;
-        int l = 1, r = min(l1, l2), tmp = 0;
-        while(l <= r) {
-            int mid = (l + r) >> 1;
-            if(count(x, x + mid - 1) == count(y, y + mid - 1)) {
-                tmp = mid;
-                l = mid + 1;
-            }
-            else r = mid - 1;
-        }
-        return tmp;
-    };
-    auto cmp = [&] (int x, int y) {
-        int len = calc(x, y);
-        if(len == min(n - x + 1, n - y + 1)) return x > y;
-        else return s[x + len] < s[y + len];
-    };
-    vector<int> SA(n + 1);
-    for(int i = 1;i <= n;i++) SA[i] = i;
-    vector<int> height(n + 1);
-    sort(SA.begin() + 1, SA.end(), cmp);
-    for(int i = 2;i <= n;i++) height[i] = calc(SA[i - 1], SA[i]);
-    for(int i = 1;i <= n;i++) cout << SA[i] - 1 << " \n"[i == n];
-    for(int i = 1;i <= n;i++) cout << height[i] << " \n"[i == n];
+using namespace std;
+
+constexpr int N = 40010;
+
+int n, k, a[N], sa[N], rk[N], oldrk[N], id[N], px[N], cnt[1000010], ht[N], ans;
+multiset<int> t;  // multiset 是最好写的实现方式
+
+bool cmp(int x, int y, int w) {
+  return oldrk[x] == oldrk[y] && oldrk[x + w] == oldrk[y + w];
+}
+
+int main() {
+  cin.tie(nullptr)->sync_with_stdio(false);
+  int i, j, w, p, m = 1000000;
+
+  cin >> n >> k;
+  --k;
+
+  for (i = 1; i <= n; ++i) cin >> a[i];  // 求后缀数组
+  for (i = 1; i <= n; ++i) ++cnt[rk[i] = a[i]];
+  for (i = 1; i <= m; ++i) cnt[i] += cnt[i - 1];
+  for (i = n; i >= 1; --i) sa[cnt[rk[i]]--] = i;
+
+  for (w = 1; w < n; w <<= 1, m = p) {
+    for (p = 0, i = n; i > n - w; --i) id[++p] = i;
+    for (i = 1; i <= n; ++i)
+      if (sa[i] > w) id[++p] = sa[i] - w;
+    memset(cnt, 0, sizeof(cnt));
+    for (i = 1; i <= n; ++i) ++cnt[px[i] = rk[id[i]]];
+    for (i = 1; i <= m; ++i) cnt[i] += cnt[i - 1];
+    for (i = n; i >= 1; --i) sa[cnt[px[i]]--] = id[i];
+    memcpy(oldrk, rk, sizeof(rk));
+    for (p = 0, i = 1; i <= n; ++i)
+      rk[sa[i]] = cmp(sa[i], sa[i - 1], w) ? p : ++p;
+  }
+
+  for (i = 1, j = 0; i <= n; ++i) {  // 求 height
+    if (j) --j;
+    while (a[i + j] == a[sa[rk[i] - 1] + j]) ++j;
+    ht[rk[i]] = j;
+  }
+
+  for (i = 1; i <= n; ++i) {  // 求所有最小值的最大值
+    t.insert(ht[i]);
+    if (i > k) t.erase(t.find(ht[i - k]));
+    ans = max(ans, *t.begin());
+  }
+
+  cout << ans;
+
+  return 0;
 }

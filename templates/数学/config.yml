@@ -11,3 +11,13 @@
     code: 组合数.cpp
   - name: 质因数分解
     code: 质因数分解.cpp
+  - name: 随机数
+    code: 随机数.cpp
+  - name: 三分
+    code: 三分.cpp
+  - name: Pollard_pho
+    code: Pollard_pho.cpp
+  - name: 子集枚举
+    code: 子集枚举.cpp 
+  - name: __int128
+    code: __int128.cpp
