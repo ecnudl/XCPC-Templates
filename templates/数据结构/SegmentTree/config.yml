@@ -11,3 +11,5 @@ contents:
   - name: 线段树维护哈希
     code: 线段树维护哈希.cpp
     code-pre: 线段树维护哈希-pre.tex
+  - name: 线段树合并
+    code: 线段树合并.cpp
