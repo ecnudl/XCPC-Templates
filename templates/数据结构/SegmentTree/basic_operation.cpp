@@ -250,3 +250,142 @@ struct SegmentTree{
         return query(1, 1, n, l, r);
     }
 };
+
+//下面展示线段树区间赋值，区间翻转和区间求和操作，打tag时要注意逻辑顺序，其余的操作结合也可以类比这种思维
+#include <bits/stdc++.h>
+using namespace std;
+
+#define endl '\n'
+#define int long long
+int n;
+const int N = 5e5 + 10;
+struct que {
+    int ty, l, r;
+} a[N];
+struct node {
+    int sum;
+    int l, r;
+}seg[N << 2];
+int tag1[N << 2], tag2[N << 2];
+vector<int> vx;
+
+void pushup(int u) {
+    seg[u].sum = seg[u * 2].sum + seg[u * 2 + 1].sum;
+    seg[u].l = seg[u * 2].l;
+    seg[u].r = seg[u * 2 + 1].r;
+}
+
+void pushdown(int u) {
+    if(tag1[u]) {
+        seg[u * 2].sum = (seg[u * 2].r - seg[u * 2].l + 1) - seg[u * 2].sum;
+        seg[u * 2 + 1].sum = (seg[u * 2 + 1].r - seg[u * 2 + 1].l + 1) - seg[u * 2 + 1].sum;
+        if(tag2[u * 2] != -1) tag2[u * 2] ^= 1;
+        else tag1[u * 2] ^= 1;
+        if(tag2[u * 2 + 1] != -1) tag2[u * 2 + 1] ^= 1;
+        else tag1[u * 2 + 1] ^= 1;
+        tag1[u] = 0;
+    }
+    if(tag2[u] != -1) {
+        seg[u * 2].sum = (seg[u * 2].r - seg[u * 2].l + 1) * tag2[u];
+        seg[u * 2 + 1].sum = (seg[u * 2 + 1].r - seg[u * 2 + 1].l + 1) * tag2[u];
+        tag2[u * 2] = tag2[u * 2 + 1] = tag2[u];
+        tag1[u * 2] = tag1[u * 2 + 1] = 0;
+        tag2[u] = -1;
+    }
+}
+
+void build(int u, int l, int r) {
+    seg[u].l = l;
+    seg[u].r = r;
+    if(l == r) {
+        seg[u].sum = 0;
+        return;
+    }
+    int mid = (l + r) >> 1;
+    build(u * 2, l, mid);
+    build(u * 2 + 1, mid + 1, r);
+    pushup(u);
+}
+
+void modify(int u, int l, int r, int ql, int qr, int k) {
+    if(r < ql || l > qr) return;
+    if(l >= ql && r <= qr) {
+        if(k <= 1) {
+            tag2[u] = k;
+            tag1[u] = 0;
+            seg[u].sum = (seg[u].r - seg[u].l + 1) * k;
+        }
+        else {
+            if(tag2[u] != -1) {
+                tag2[u] ^= 1;
+            }
+            else {
+                tag1[u] ^= 1;
+            }
+            seg[u].sum = (seg[u].r - seg[u].l + 1) - seg[u].sum;
+        }
+        return;
+    }
+    int mid = (l + r) >> 1;
+    pushdown(u);
+    modify(u * 2, l, mid, ql, qr, k);
+    modify(u * 2 + 1, mid + 1, r, ql, qr, k);
+    pushup(u);
+}
+
+int query(int u, int l, int r) {
+    if(l == r) return l;
+    int mid = (l + r) >> 1;
+    pushdown(u);
+    if(seg[u * 2].sum < mid - l + 1) return query(u * 2, l, mid);
+    return query(u * 2 + 1, mid + 1, r);
+}
+
+void solve() {
+    memset(tag2, -1, sizeof tag2);
+    cin >> n;
+    vx.push_back(1);
+    for(int i = 1;i <= n;i++) {
+        cin >> a[i].ty >> a[i].l >> a[i].r;
+        vx.push_back(a[i].l);
+        vx.push_back(a[i].r);
+        vx.push_back(a[i].r + 1);
+    }
+    int tmp = 1e18 + 1;
+    vx.push_back(tmp);
+    sort(vx.begin(), vx.end());
+    vx.erase(unique(vx.begin(), vx.end()), vx.end());
+    int M = (int)vx.size();
+//    int M = 10;
+    auto calc = [&] (int x) {
+        return (int) (lower_bound(vx.begin(), vx.end(), x) - vx.begin() + 1);
+    };
+    build(1, 1, M);
+    for(int i = 1;i <= n;i++) {
+        auto [ty, l, r] = a[i];
+        l = calc(l);
+        r = calc(r);
+        if(ty == 1) {
+            modify(1, 1, M, l, r, 1);
+        }
+        else if(ty == 2) {
+            modify(1, 1, M, l, r, 0);
+        }
+        else {
+            modify(1, 1, M, l, r, 2);
+        }
+        cout << vx[query(1, 1, M) - 1] << endl;
+    }
+}
+
+signed main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    int T = 1;
+//    cin >> T;
+    while(T--) {
+        solve();
+    }
+
+    return 0;
+}

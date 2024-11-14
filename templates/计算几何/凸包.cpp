@@ -130,3 +130,32 @@ template<typename T> struct convex: polygon<T>
         return {i,j};
     }
 };
+
+using Points = vector<Point>;
+bool check(Point p, Point q, Point r) // 检查三个点组成的两个向量的旋转方向是否为逆时针
+{
+    return lt(0, cross(q - p, r - q));  //return cross() <= 0;
+}
+Points chull(Points ps)
+{
+    sort(ps.begin(), ps.end());
+    vector<int> I{0}, used(ps.size());
+    for (int i = 1; i < ps.size(); i++)
+    {
+        while (I.size() > 1 && !check(ps[I[I.size() - 2]], ps[I.back()], ps[i]))
+            used[I.back()] = 0, I.pop_back();
+        used[i] = 1, I.push_back(i);
+    }
+    for (int i = ps.size() - 2; i >= 0; i--)
+    {
+        if (used[i])
+            continue;
+        while (I.size() > 1 && !check(ps[I[I.size() - 2]], ps[I.back()], ps[i]))
+            I.pop_back();
+        I.push_back(i);
+    }
+    Points H;
+    for (int i = 0; i < I.size() - 1; i++)
+        H.push_back(ps[I[i]]);
+    return H;
+}
