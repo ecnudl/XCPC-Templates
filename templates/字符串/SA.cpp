@@ -13,7 +13,7 @@ bool cmp(int x, int y, int w) {
   return oldrk[x] == oldrk[y] && oldrk[x + w] == oldrk[y + w];
 }
 
-int main() {
+int main() {    
   cin.tie(nullptr)->sync_with_stdio(false);
   int i, j, w, p, m = 1000000;
 
